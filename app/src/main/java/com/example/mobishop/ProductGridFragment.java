@@ -1,15 +1,20 @@
 package com.example.mobishop;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -18,8 +23,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobishop.network.ProductEntry;
 import com.example.mobishop.staggeredgridlayout.ProductCardViewAdapter;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.wallet.AutoResolveHelper;
+import com.google.android.gms.wallet.PaymentData;
+import com.google.android.gms.wallet.PaymentDataRequest;
 
-public class ProductGridFragment extends Fragment {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Optional;
+
+public class ProductGridFragment extends Fragment implements ProductPaymentDelegate {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +62,7 @@ public class ProductGridFragment extends Fragment {
         });
         recyclerView.setLayoutManager(gridLayoutManager);
         ProductCardViewAdapter adapter = new ProductCardViewAdapter(
-                ProductEntry.initProductEntryList(getResources()));
+                ProductEntry.initProductEntryList(getResources()), this);
         recyclerView.setAdapter(adapter);
         int largePadding = getResources().getDimensionPixelSize(R.dimen.mobishop_staggered_product_grid_spacing_large);
         int smallPadding = getResources().getDimensionPixelSize(R.dimen.mobishop_staggered_product_grid_spacing_small);
@@ -80,4 +94,23 @@ public class ProductGridFragment extends Fragment {
         super.onCreateOptionsMenu(menu, menuInflater);
     }
 
+    @Override
+    public void payment(Double price) {
+        try {
+            long priceCents = Math.round(price * PaymentsUtil.CENTS_IN_A_UNIT.longValue());
+            Optional<JSONObject> paymentDataRequestJson = PaymentsUtil.getPaymentDataRequest(priceCents);
+            if (!paymentDataRequestJson.isPresent()) {
+                return;
+            }
+            PaymentDataRequest request =
+                    PaymentDataRequest.fromJson(paymentDataRequestJson.get().toString());
+            if (request != null) {
+                AutoResolveHelper.resolveTask(
+                        PaymentsUtil.createPaymentsClient(this.getActivity()).loadPaymentData(request),
+                        this.getActivity(), PaymentsUtil.LOAD_PAYMENT_DATA_REQUEST_CODE);
+            }
+        }catch (Exception e) {
+            throw new RuntimeException("The price cannot be deserialized from the JSON object.");
+        }
+    }
 }

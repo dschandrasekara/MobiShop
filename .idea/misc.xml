@@ -3,8 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.33796296296296297" />
+        <entry key="app/src/main/res/drawable/mobishop_branded_menu.xml" value="0.33796296296296297" />
+        <entry key="app/src/main/res/drawable/mobishop_close_menu.xml" value="0.33796296296296297" />
+        <entry key="app/src/main/res/drawable/mobishop_filter.xml" value="0.33796296296296297" />
+        <entry key="app/src/main/res/drawable/mobishop_logo.xml" value="0.33796296296296297" />
+        <entry key="app/src/main/res/drawable/mobishop_menu.xml" value="0.33796296296296297" />
+        <entry key="app/src/main/res/drawable/mobishop_product_grid_background_shape.xml" value="0.33796296296296297" />
+        <entry key="app/src/main/res/drawable/mobishop_search.xml" value="0.33796296296296297" />
         <entry key="app/src/main/res/layout/mobishop_backdrop.xml" value="0.17447916666666666" />
+        <entry key="app/src/main/res/layout/mobishop_login_fragment.xml" value="0.14855072463768115" />
         <entry key="app/src/main/res/layout/mobishop_product_grid_fragment.xml" value="0.17447916666666666" />
+        <entry key="app/src/main/res/layout/mobishop_staggered_product_card_first.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/mobishop_staggered_product_card_second.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/mobishop_staggered_product_card_third.xml" value="0.33" />
         <entry key="app/src/main/res/layout/shr_login_fragment.xml" value="0.17395833333333333" />
         <entry key="app/src/main/res/layout/shr_main_activity.xml" value="0.17395833333333333" />
         <entry key="app/src/main/res/layout/shr_product_card.xml" value="0.1" />
@@ -18,5 +30,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.22" />
+      </ProjectState>
+    </option>
   </component>
 </project>
