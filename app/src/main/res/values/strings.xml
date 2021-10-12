@@ -1,0 +1,21 @@
+<resources>
+    <string name="mobishop_app_name">Shrine</string>
+    <string name="mobishop_hint_username">Username</string>
+    <string name="mobishop_hint_password">Password</string>
+    <string name="mobishop_button_next">Next</string>
+    <string name="mobishop_button_cancel">Cancel</string>
+    <string name="mobishop_error_password">Password must contain at least 8 characters.</string>
+    <string name="mobishop_filter_title">Filter</string>
+    <string name="mobishop_search_title">Search</string>
+    <string name="mobishop_product_title">Title</string>
+    <string name="mobishop_product_description">Secondary text</string>
+
+    <!-- Shrine backdrop menu labels -->
+    <string name="mobishop_featured_label">Featured</string>
+    <string name="mobishop_accessories_label">Accessories</string>
+    <string name="mobishop_shoes_label">Shoes</string>
+    <string name="mobishop_tops_label">Tops</string>
+    <string name="mobishop_bottoms_label">Bottoms</string>
+    <string name="mobishop_dresses_label">Dresses</string>
+    <string name="mobishop_account_label">My Account</string>
+</resources>
