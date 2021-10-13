@@ -270,6 +270,20 @@ public class PaymentsUtil {
                     "allowedPaymentMethods", new JSONArray().put(PaymentsUtil.getCardPaymentMethod()));
             paymentDataRequest.put("transactionInfo", PaymentsUtil.getTransactionInfo(price));
             paymentDataRequest.put("merchantInfo", PaymentsUtil.getMerchantInfo());
+
+             /* An optional shipping address requirement is a top-level property of the PaymentDataRequest
+      JSON object. */
+//            paymentDataRequest.put("shippingAddressRequired", true);
+//
+//            JSONObject shippingAddressParameters = new JSONObject();
+//            shippingAddressParameters.put("phoneNumberRequired", false);
+//
+//            JSONArray allowedCountryCodes = new JSONArray(SHIPPING_SUPPORTED_COUNTRIES);
+//
+//            shippingAddressParameters.put("allowedCountryCodes", allowedCountryCodes);
+//            paymentDataRequest.put("shippingAddressParameters", shippingAddressParameters);
+
+
             paymentDataRequest.put("emailRequired", true);
             return Optional.of(paymentDataRequest);
 
