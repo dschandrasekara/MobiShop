@@ -5,6 +5,10 @@ import android.app.Activity;
 import com.google.android.gms.wallet.WalletConstants;
 import com.google.android.gms.wallet.PaymentsClient;
 import com.google.android.gms.wallet.Wallet;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -173,14 +177,6 @@ public class PaymentsUtil {
         JSONObject parameters = new JSONObject();
         parameters.put("allowedAuthMethods", getAllowedCardAuthMethods());
         parameters.put("allowedCardNetworks", getAllowedCardNetworks());
-        // Optionally, you can add billing address/phone number associated with a CARD payment method.
-        parameters.put("billingAddressRequired", true);
-
-        JSONObject billingAddressParameters = new JSONObject();
-        billingAddressParameters.put("format", "FULL");
-
-        parameters.put("billingAddressParameters", billingAddressParameters);
-
         cardPaymentMethod.put("parameters", parameters);
 
         return cardPaymentMethod;
@@ -274,18 +270,7 @@ public class PaymentsUtil {
                     "allowedPaymentMethods", new JSONArray().put(PaymentsUtil.getCardPaymentMethod()));
             paymentDataRequest.put("transactionInfo", PaymentsUtil.getTransactionInfo(price));
             paymentDataRequest.put("merchantInfo", PaymentsUtil.getMerchantInfo());
-
-      /* An optional shipping address requirement is a top-level property of the PaymentDataRequest
-      JSON object. */
-            paymentDataRequest.put("shippingAddressRequired", true);
-
-            JSONObject shippingAddressParameters = new JSONObject();
-            shippingAddressParameters.put("phoneNumberRequired", false);
-
-            JSONArray allowedCountryCodes = new JSONArray(SHIPPING_SUPPORTED_COUNTRIES);
-
-            shippingAddressParameters.put("allowedCountryCodes", allowedCountryCodes);
-            paymentDataRequest.put("shippingAddressParameters", shippingAddressParameters);
+            paymentDataRequest.put("emailRequired", true);
             return Optional.of(paymentDataRequest);
 
         } catch (JSONException e) {
@@ -303,5 +288,11 @@ public class PaymentsUtil {
                 .divide(CENTS_IN_A_UNIT, RoundingMode.HALF_EVEN)
                 .setScale(2, RoundingMode.HALF_EVEN)
                 .toString();
+    }
+
+    public static String getPrettyJson(String uglyJson) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonElement je = JsonParser.parseString(uglyJson);
+        return  gson.toJson(je);
     }
 }

@@ -64,10 +64,11 @@ public class ProductCardViewAdapter extends RecyclerView.Adapter<ProductCardView
             holder.productTitle.setText(product.title);
             holder.productPrice.setText(product.price);
             imageRequester.setImageFromUrl(holder.productImage, product.url);
+            String priceVal = product.price.substring(1, product.price.length());
+            final Double price = Double.parseDouble(priceVal);
             holder.payButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Double price = 100.00;
                     productPaymentDelegate.payment(price);
                 }
             });

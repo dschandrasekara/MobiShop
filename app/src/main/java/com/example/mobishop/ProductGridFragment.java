@@ -27,6 +27,10 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.wallet.AutoResolveHelper;
 import com.google.android.gms.wallet.PaymentData;
 import com.google.android.gms.wallet.PaymentDataRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,6 +108,7 @@ public class ProductGridFragment extends Fragment implements ProductPaymentDeleg
             }
             PaymentDataRequest request =
                     PaymentDataRequest.fromJson(paymentDataRequestJson.get().toString());
+            System.out.println("Payment Request: \n" + PaymentsUtil.getPrettyJson(paymentDataRequestJson.get().toString()));
             if (request != null) {
                 AutoResolveHelper.resolveTask(
                         PaymentsUtil.createPaymentsClient(this.getActivity()).loadPaymentData(request),

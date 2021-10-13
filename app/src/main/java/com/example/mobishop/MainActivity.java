@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements NavigationHost {
         if (paymentInfo == null) {
             return;
         }
-
+        System.out.println("Payment Response: \n" + PaymentsUtil.getPrettyJson(paymentInfo));
         try {
             JSONObject paymentMethodData = new JSONObject(paymentInfo).getJSONObject("paymentMethodData");
             // If the gateway is set to "example", no payment information is returned - instead, the
@@ -95,14 +95,13 @@ public class MainActivity extends AppCompatActivity implements NavigationHost {
             final JSONObject tokenizationData = paymentMethodData.getJSONObject("tokenizationData");
             final String token = tokenizationData.getString("token");
             final JSONObject info = paymentMethodData.getJSONObject("info");
-            final String billingName = info.getJSONObject("billingAddress").getString("name");
-            Toast.makeText(this, billingName, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Payment has been done successfully.", Toast.LENGTH_LONG).show();
 
             // Logging token string.
             Log.d("Google Pay token: ", token);
 
         } catch (JSONException e) {
-            throw new RuntimeException("The selected garment cannot be parsed from the list of elements");
+            throw new RuntimeException("The payment response cannot convert to json");
         }
     }
 }
