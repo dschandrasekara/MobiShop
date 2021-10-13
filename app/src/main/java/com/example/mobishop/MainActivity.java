@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity implements NavigationHost {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mobishop_main_activity);
-
+        Intent intent = new Intent();
+        this.setIntent(intent);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -95,7 +96,12 @@ public class MainActivity extends AppCompatActivity implements NavigationHost {
             final JSONObject tokenizationData = paymentMethodData.getJSONObject("tokenizationData");
             final String token = tokenizationData.getString("token");
             final JSONObject info = paymentMethodData.getJSONObject("info");
-            Toast.makeText(this, "Payment has been done successfully.", Toast.LENGTH_LONG).show();
+            Intent intent = this.getIntent();
+            Double price = 0.00;
+            if (intent != null){
+                price = intent.getDoubleExtra(PaymentsUtil.PRICE_INTENT, 0.00);
+            }
+            Toast.makeText(this, "$" + String.format("%.2f", price) + " Payment has been done successfully.", Toast.LENGTH_LONG).show();
 
             // Logging token string.
             Log.d("Google Pay token: ", token);

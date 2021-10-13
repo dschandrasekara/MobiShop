@@ -31,7 +31,7 @@ import org.json.JSONObject;
 public class PaymentsUtil {
 
     public static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
-
+    public static final String PRICE_INTENT = "PRICE_INTENT";
     public static final BigDecimal CENTS_IN_A_UNIT = new BigDecimal(100d);
 
     /**

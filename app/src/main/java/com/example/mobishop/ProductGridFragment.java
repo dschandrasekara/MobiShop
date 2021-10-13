@@ -110,6 +110,12 @@ public class ProductGridFragment extends Fragment implements ProductPaymentDeleg
                     PaymentDataRequest.fromJson(paymentDataRequestJson.get().toString());
             System.out.println("Payment Request: \n" + PaymentsUtil.getPrettyJson(paymentDataRequestJson.get().toString()));
             if (request != null) {
+                Intent intent = this.getActivity().getIntent();
+                if (intent == null){
+                    intent = new Intent();
+                }
+                intent.putExtra(PaymentsUtil.PRICE_INTENT, price);
+                this.getActivity().setIntent(intent);
                 AutoResolveHelper.resolveTask(
                         PaymentsUtil.createPaymentsClient(this.getActivity()).loadPaymentData(request),
                         this.getActivity(), PaymentsUtil.LOAD_PAYMENT_DATA_REQUEST_CODE);
