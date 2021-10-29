@@ -3,6 +3,7 @@
     <string name="mobishop_hint_username">Username</string>
     <string name="mobishop_hint_password">Password</string>
     <string name="mobishop_button_next">Next</string>
+    <string name="mobishop_button_pay">Pay</string>
     <string name="mobishop_button_cancel">Cancel</string>
     <string name="mobishop_error_password">Password must contain at least 8 characters.</string>
     <string name="mobishop_filter_title">Filter</string>

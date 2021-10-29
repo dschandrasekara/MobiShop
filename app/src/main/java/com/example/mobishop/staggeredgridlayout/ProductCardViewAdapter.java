@@ -4,14 +4,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mobishop.PaymentsUtil;
+import com.example.mobishop.ProductPaymentDelegate;
 import com.example.mobishop.R;
 import com.example.mobishop.network.ImageRequester;
 import com.example.mobishop.network.ProductEntry;
+import com.google.android.gms.wallet.AutoResolveHelper;
+import com.google.android.gms.wallet.PaymentDataRequest;
+import com.google.gson.JsonIOException;
 
 import java.util.List;
+import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Adapter used to show an asymmetric grid of products, with 2 items in the first column, and 1
@@ -21,10 +30,12 @@ public class ProductCardViewAdapter extends RecyclerView.Adapter<ProductCardView
 
     private List<ProductEntry> productList;
     private ImageRequester imageRequester;
+    private ProductPaymentDelegate productPaymentDelegate;
 
-    public ProductCardViewAdapter(List<ProductEntry> productList) {
+    public ProductCardViewAdapter(List<ProductEntry> productList, ProductPaymentDelegate productPaymentDelegate) {
         this.productList = productList;
         imageRequester = ImageRequester.getInstance();
+        this.productPaymentDelegate = productPaymentDelegate;
     }
 
     @Override
@@ -53,6 +64,14 @@ public class ProductCardViewAdapter extends RecyclerView.Adapter<ProductCardView
             holder.productTitle.setText(product.title);
             holder.productPrice.setText(product.price);
             imageRequester.setImageFromUrl(holder.productImage, product.url);
+            String priceVal = product.price.substring(1, product.price.length());
+            final Double price = Double.parseDouble(priceVal);
+            holder.payButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    productPaymentDelegate.payment(price);
+                }
+            });
         }
     }
 
